@@ -1,0 +1,10 @@
+Run
+
+docker-compose up
+or
+docker-compose up --build
+
+Notas
+
+-> http://containertutorials.com/docker-compose/flask-simple-app.html
+-> http://containertutorials.com/docker-compose/flask-compose.html
