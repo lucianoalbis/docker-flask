@@ -1,6 +1,24 @@
-web:
-  build: ./web
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/code
+version: '2'
+
+services:
+  db:
+    ports:
+      - "33099:3306"
+    image: mysql:5.7
+    container_name: "flask-db"
+    volumes:
+      - ./resources/scripts/mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbpython
+      MYSQL_USER: dbpython
+      MYSQL_PASSWORD: dbpython
+  web:
+    build: ./web
+    container_name: "flask-web"
+    ports:
+      - "5000:5000"
+    links:
+      - db
+    volumes:
+      - .:/code
