@@ -1,10 +1,4 @@
-Run
+Commands
 
-docker-compose up
-or
-docker-compose up --build
-
-Notas
-
--> http://containertutorials.com/docker-compose/flask-simple-app.html
--> http://containertutorials.com/docker-compose/flask-compose.html
+#cd docker-flask
+#docker-compose up OR docker-compose up --build
