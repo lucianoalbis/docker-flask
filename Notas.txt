@@ -1,4 +1,0 @@
-Commands
-
-#cd docker-flask
-#docker-compose up OR docker-compose up --build
