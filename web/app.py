@@ -1,12 +1,20 @@
 from flask import Flask, request
-from MySQLdb import _mysql
+import mysql.connector
+from mysql.connector import Error
 
 app = Flask(__name__)
 
 try:
-    db=_mysql.connect(host="172.27.0.2",port=3306,user="root",passwd="root",db="dbpython")
-except:
-    print("Can't connect to database")
+    connection = mysql.connector.connect(host='172.29.0.2', user='root', password='root', database='dbpython')
+    if connection.is_connected():
+       db_Info = connection.get_server_info()
+       print("Connected to MySQL database... MySQL Server version on ",db_Info)
+       cursor = connection.cursor()
+       cursor.execute("select database();")
+       record = cursor.fetchone()
+       print ("Your connected to - ", record)
+except Error as e :
+    print ("Error while connecting to MySQL", e)
 
 @app.route('/')
 def hello_world():

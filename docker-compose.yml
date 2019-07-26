@@ -7,7 +7,11 @@ services:
     image: mysql:5.7
     container_name: "flask-db"
     volumes:
-      - ./resources/scripts/mysql:/docker-entrypoint-initdb.d
+      - ./resources/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - ./resources/scripts/mysql:/tmp/database
+    command: mysqld --init-file="/tmp/database/db.sql"
+    networks:
+      - my_net
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dbpython
@@ -18,7 +22,14 @@ services:
     container_name: "flask-web"
     ports:
       - "5000:5000"
+    depends_on:
+      - db
     links:
       - db
     volumes:
       - .:/code
+    networks:
+      - my_net
+networks:
+  my_net:
+    driver: bridge
