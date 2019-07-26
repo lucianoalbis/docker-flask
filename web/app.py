@@ -17,8 +17,11 @@ except Error as e :
     print ("Error while connecting to MySQL", e)
 
 @app.route('/')
-def hello_world():
-    return 'Hey, we have Flask in a Docker container!'
+def add_user():
+    sql_insert_query = """ INSERT INTO `users` (`id`, `name`, `age`) VALUES (0,'Luciano Albis', 34)"""
+    cursor.execute(sql_insert_query)
+    connection.commit()
+    return 'User add!'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
